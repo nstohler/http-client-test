@@ -31,6 +31,9 @@ namespace ApsNetCoreConsole
 
         public static async Task MainAsync(string[] args)
         {
+            // Windows authentication for HttpClient:
+            // add "new HttpClientHandler() { UseDefaultCredentials = true })" to ctor call
+
             using (var client = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true }))            
             {
                 // http://www.binaryintellect.net/articles/6903087e-5e5c-445a-be20-cee0a7eb434e.aspx                
@@ -59,7 +62,9 @@ namespace ApsNetCoreConsole
                 if (response.IsSuccessStatusCode)
                 {
                     var stringData = await response.Content.ReadAsStringAsync();
-                    
+
+                    // use "data" node to convert to cs object:
+                    // https://stackoverflow.com/a/29702862/54159
                     var parsed = JObject.Parse(stringData);
                     var data = parsed["data"];
 
@@ -71,10 +76,7 @@ namespace ApsNetCoreConsole
                 {
                     throw new Exception("some stupid error during http request");
                 }
-
             }
-            //await Task.Delay(1000);
-            //Console.WriteLine("Hello World!");
         }
     }
 }
