@@ -8,22 +8,18 @@ using Newtonsoft.Json.Linq;
 namespace ApsNetCoreConsole
 {
     class Program
-    {
-        // async console app:
-        // https://stackoverflow.com/a/38127525/54159
-
+    {        
         static void Main(string[] args)
         {            
             try
             {
+                // async console app:
+                // https://stackoverflow.com/a/38127525/54159
                 MainAsync(args).GetAwaiter().GetResult();
-
-                
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                //throw;
             }
             Console.WriteLine("done.");
             Console.ReadLine();
@@ -47,9 +43,12 @@ namespace ApsNetCoreConsole
                 if (response.IsSuccessStatusCode)
                 {
                     var stringData = await response.Content.ReadAsStringAsync();
-                    var pingResult = JsonConvert.DeserializeObject<PingResult>(stringData);
                     
-                    Console.WriteLine($"pingResult = {JsonConvert.SerializeObject(pingResult)}");
+                    // convert json data to c# object:
+                    var pingResult = JsonConvert.DeserializeObject<PingResult>(stringData);
+
+                    // output c# object to console
+                    Console.WriteLine($"pingResult = {JsonConvert.SerializeObject(pingResult)}");   
                 }
                 else
                 {
@@ -63,13 +62,15 @@ namespace ApsNetCoreConsole
                 {
                     var stringData = await response.Content.ReadAsStringAsync();
 
-                    // use "data" node to convert to cs object:
+                    // use "data" node to convert to c# object:
                     // https://stackoverflow.com/a/29702862/54159
                     var parsed = JObject.Parse(stringData);
                     var data = parsed["data"];
 
+                    // convert json data to c# object:
                     var adUserInfo = JsonConvert.DeserializeObject<AdUserInfo>(data.ToString());
 
+                    // output c# object to console
                     Console.WriteLine($"adUserInfo = {JsonConvert.SerializeObject(adUserInfo)}");
                 }
                 else
