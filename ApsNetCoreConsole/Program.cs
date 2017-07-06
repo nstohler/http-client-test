@@ -100,7 +100,7 @@ namespace ApsNetCoreConsole
         private static async Task<List<AdUserInfoListItem>> ExecuteGetAdInfoList(HttpClient client)
         {
             //----------------------
-            // Current User
+            // Get company part user list
             // GET api/adinfo/list/ensi
             var response = await client.GetAsync("api/adinfo/list/ensi");
             if (response.IsSuccessStatusCode)
