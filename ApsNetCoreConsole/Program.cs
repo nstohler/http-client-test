@@ -62,10 +62,7 @@ namespace ApsNetCoreConsole
 
                 return pingResult;
             }
-            else
-            {
-                throw new Exception("some stupid error during http request");
-            }            
+            throw new Exception("some stupid error during http request");
         }
 
         private static async Task<AdUserInfo> ExecuteGetAdInfo(HttpClient client)
@@ -91,10 +88,7 @@ namespace ApsNetCoreConsole
 
                 return adUserInfo;
             }
-            else
-            {
-                throw new Exception("some stupid error during http request");
-            }
+            throw new Exception("some stupid error during http request");
         }
 
         private static async Task<List<AdUserInfoListItem>> ExecuteGetAdInfoList(HttpClient client)
@@ -120,10 +114,7 @@ namespace ApsNetCoreConsole
 
                 return adUserInfoListItems;
             }
-            else
-            {
-                throw new Exception("some stupid error during http request");
-            }
+            throw new Exception("some stupid error during http request");
         }
     }
 }
